@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Schero</string>
+    <string name="home">Home</string>
+    <string name="recommender">Recommender</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Log out</string>
+    <string name="theme">Change Theme</string>
+    <string name="search">Search Scholarship</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="setting">Setting</string>
+    <string name="name">Nama Lengkap</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone Number</string>
+    <string name="title_menu_1">Your Scholarship Compass</string>
+    <string name="title_menu_2">Navigating Your Educational Odyssey</string>
+    <string name="title_menu_3">Where Opportunities Find You</string>
+    <string name="title_menu_4">Connect to Your Academic Future</string>
+    <string name="desc_menu_1">Schero is not just an app, it is your personal guide to unlocking a world of educational opportunities. Discover tailored scholarships, track your academic journey, and embark on a quest towards a brighter future!</string>
+    <string name="desc_menu_2">Embark on a seamless educational odyssey with Schero! This app sifts through myriad scholarships, offering personalized recommendations. Your journey to academic excellence begins with a single tap.</string>
+    <string name="desc_menu_3">Schero is not just an app; it is your beacon to academic success. Uncover scholarships that match your aspirations, track your progress, and let opportunities find you effortlessly.</string>
+    <string name="desc_menu_4">With Schero, your academic future is just a click away. Connect to a world of scholarships tailor-made for you. Experience the seamless link between your ambitions and the opportunities that await!</string>
+    <string name="signin">Continue With Google</string>
+</resources>
