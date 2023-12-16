@@ -13,7 +13,7 @@ def download_file_from_gcs(bucket_name, source_blob_name, destination_file_name)
 
 bucket_name = 'adityaschero'
 vectorizer_file_name = 'tfidf_vectorizer.pkl'
-model_file_name = 'tfidf_matrix.pkl'  
+model_file_name = 'tfidf_matrix.pkl'
 dataset_file_name = 'beasiswa.csv'
 
 download_file_from_gcs(bucket_name, f'model/{vectorizer_file_name}', f'{vectorizer_file_name}')

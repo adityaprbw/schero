@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, Blueprint
-from app.model.prediction import predict, get_scholarship_details
+from .model.prediction import predict, get_scholarship_details
 from google.cloud import storage
 import pandas as pd
 import joblib
@@ -13,7 +13,7 @@ resources_bp = Blueprint('resources', __name__)
 def on_load(state):
     bucket_name = 'adityaschero'
     vectorizer_file_name = 'tfidf_vectorizer.pkl'
-    model_file_name = 'tfidf_matrix.pkl' 
+    model_file_name = 'tfidf_matrix.pkl'
     data_file_name = 'beasiswa.csv'
 
     download_file_from_gcs(bucket_name, f'model/{vectorizer_file_name}', f'app/model/{vectorizer_file_name}')
@@ -30,7 +30,7 @@ def download_file_from_gcs(bucket_name, source_blob_name, destination_file_name)
     blob = bucket.blob(source_blob_name)
     blob.download_to_filename(destination_file_name)
 
-app.register_blueprint(resources_bp)
+app.register_blueprint(resources_bp, url_prefix='/resources')
 
 @app.route('/predict', methods=['POST'])
 def predict_scholarships():
@@ -59,5 +59,5 @@ def get_details():
         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True) # to run on Google Cloud Platform
-    # app.run(port=5000, debug=True) to run on local
+    app.run(host='0.0.0.0', port=8080, debug=True)  # to run on Google Cloud Platform
+    # app.run(port=5000, debug=True)  # to run on local
