@@ -1,0 +1,7 @@
+flask
+pandas
+joblib
+fuzzywuzzy
+nltk.tokenize
+sklearn.feature_extraction.text
+joblib
