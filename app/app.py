@@ -12,6 +12,7 @@ def download_file_from_gcs(bucket_name, source_blob_name, destination_file_name)
     blob = bucket.blob(source_blob_name)
     blob.download_to_filename(destination_file_name)
 
+# Load resources at the module level
 bucket_name = 'adityaschero'
 vectorizer_file_name = 'tfidf_vectorizer.pkl'
 model_file_name = 'tfidf_matrix.pkl' 
@@ -52,4 +53,5 @@ def get_details():
         return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True) # to run on Google Cloud Platform
+    # app.run(port=5000, debug=True) to run on local

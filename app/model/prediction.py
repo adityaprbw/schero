@@ -39,7 +39,8 @@ def recommend_by_content_based_filtering(query, data_content_based_filtering):
         benua_similarity = fuzz.token_set_ratio(query['benua'], str(beasiswa['Benua']).lower())
         funding_similarity = fuzz.token_set_ratio(query['pendanaan'], str(beasiswa['Jenis Pendanaan']).lower())
 
-        combined_similarity = (jenjang_similarity + benua_similarity + funding_similarity) / 3
+        FEATURE_SIMILARITY_WEIGHT = 3
+        combined_similarity = (jenjang_similarity + benua_similarity + funding_similarity) / FEATURE_SIMILARITY_WEIGHT
         matched_beasiswas.append((index, combined_similarity))
 
     matched_beasiswas = sorted(matched_beasiswas, key=lambda x: x[1], reverse=True)
