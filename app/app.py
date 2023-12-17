@@ -1,15 +1,9 @@
-import sys
-import os
 from flask import Flask, request, jsonify
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from prediction import predict, get_scholarship_details, load_model_and_data
+from prediction.prediction import recommend_by_content_based_filtering, get_scholarship_details, load_model_and_data
 
 app = Flask(__name__)
 
 MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data()
-
-BUCKET_NAME = 'zshdityaschero'
 
 @app.route('/')
 def api_info():
@@ -18,27 +12,47 @@ def api_info():
         "owner": "Aditya Prabowo",
         "description": "This API provides scholarship recommendations based on education level, funding type, and continent.",
         "endpoints": {
-            "/predict": "POST - Get scholarship recommendations",
-            "/scholarship_details": "GET - Get details about a specific scholarship"
+            "/predict": {
+                "method": "GET",
+                "description": "Get scholarship recommendations",
+                "sample_request": {
+                    "jenjang_pendidikan": "S2",
+                    "pendanaan": "Fully Funded",
+                    "benua": "Eropa"
+                }
+            },
+            "/scholarship_details": {
+                "method": "GET",
+                "description": "Get details about a specific scholarship",
+                "sample_request": {
+                    "scholarship_name": "Sample Scholarship"
+                }
+            }
         }
     }
     return jsonify(info)
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET'])
 def predict_scholarships():
     try:
-        input_data = request.json
-        education = input_data.get('jenjang pendidikan', '')
-        funding_type = input_data.get('pendanaan', '') 
-        continent = input_data.get('benua', '')
+        education = request.args.get('jenjang_pendidikan', '')
+        funding_type = request.args.get('pendanaan', '')
+        continent = request.args.get('benua', '')
 
-        recommendations = predict(education, funding_type, continent, DATA_CONTENT_BASED_FILTERING)
+        query = {
+            'jenjang pendidikan': education,
+            'pendanaan': funding_type,
+            'benua': continent
+        }
+
+        recommendations = recommend_by_content_based_filtering(query, DATA_CONTENT_BASED_FILTERING)
 
         result = {"recommendations": recommendations}
         return jsonify(result)
 
     except Exception as e:
-        return jsonify({"error": str(e), "api_info": api_info()}), 400  
+        print("Error:", str(e))
+        return jsonify({"error": str(e), "api_info": api_info()}), 400
 
 @app.route('/scholarship_details', methods=['GET'])
 def get_details():
@@ -48,12 +62,7 @@ def get_details():
         return jsonify(details)
 
     except Exception as e:
-        return jsonify({"error": str(e), "api_info": api_info()}), 400 
-
-
-"""
-to run on local uncomment this code
+        return jsonify({"error": str(e), "api_info": api_info()}), 400
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True) 
-"""
+    app.run(port=5000, debug=True)

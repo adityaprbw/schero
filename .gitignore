@@ -131,3 +131,4 @@ dist
 
 # python
 __pycache__/
+*.pyc
