@@ -1,15 +1,28 @@
 import sys
 import os
 from flask import Flask, request, jsonify
-from prediction import predict, get_scholarship_details, load_model_and_data
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from prediction import predict, get_scholarship_details, load_model_and_data
 
 app = Flask(__name__)
 
 MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data()
 
-BUCKET_NAME = 'zshdityaschero' 
+BUCKET_NAME = 'zshdityaschero'
+
+@app.route('/')
+def api_info():
+    info = {
+        "api_name": "Schero API",
+        "owner": "Aditya Prabowo",
+        "description": "This API provides scholarship recommendations based on education level, funding type, and continent.",
+        "endpoints": {
+            "/predict": "POST - Get scholarship recommendations",
+            "/scholarship_details": "GET - Get details about a specific scholarship"
+        }
+    }
+    return jsonify(info)
 
 @app.route('/predict', methods=['POST'])
 def predict_scholarships():
@@ -25,7 +38,7 @@ def predict_scholarships():
         return jsonify(result)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500  
+        return jsonify({"error": str(e), "api_info": api_info()}), 400  
 
 @app.route('/scholarship_details', methods=['GET'])
 def get_details():
@@ -35,8 +48,12 @@ def get_details():
         return jsonify(details)
 
     except Exception as e:
-        return jsonify({"error": str(e)}), 500 
+        return jsonify({"error": str(e), "api_info": api_info()}), 400 
+
+
+"""
+to run on local uncomment this code
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, debug=True) # run on GCP
-    # app.run(port=5000, debug=True) # run on local
+    app.run(port=5000, debug=True) 
+"""
