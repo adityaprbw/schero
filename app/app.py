@@ -1,16 +1,30 @@
-from flask import Flask, request, jsonify
+from fastapi import FastAPI, Query, HTTPException, Path
+from starlette.responses import JSONResponse
 from prediction.prediction import recommend_by_content_based_filtering, get_scholarship_details, load_model_and_data
+import os
 
-app = Flask(__name__)
+app = FastAPI()
 
-MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data()
+if os.environ.get('GCS_ENV') == 'local':
+    MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=True)
+else:
+    MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data()
 
-@app.route('/')
+
+@app.get("/")
 def api_info():
     info = {
         "api_name": "Schero API",
         "owner": "Aditya Prabowo",
-        "description": "This API provides scholarship recommendations based on education level, funding type, and continent.",
+        "description": "Scholarship recommendation API based on education level, funding type, and continent.",
+        "contact": {
+            "email": "adityaprabowo2001@gmail.com",
+            "github": "https://github.com/zshditya/schero"
+        },
+        "documentation": {
+            "openapi": "/docs",
+            "redoc": "/redoc"
+        },
         "endpoints": {
             "/predict": {
                 "method": "GET",
@@ -25,44 +39,51 @@ def api_info():
                 "method": "GET",
                 "description": "Get details about a specific scholarship",
                 "sample_request": {
-                    "scholarship_name": "Sample Scholarship"
+                    "scholarship_name": "Chevening UK Scholarships for International Students"
                 }
             }
         }
     }
-    return jsonify(info)
+    return info
 
-@app.route('/predict', methods=['GET'])
-def predict_scholarships():
+
+@app.get("/predict")
+def predict_scholarships(
+        jenjang_pendidikan: str = Query(..., description="Education level", regex="^(S1|S2|S3)$"),
+        pendanaan: str = Query(..., description="Funding type", regex="^(Fully Funded|Partial Funded)$"),
+        benua: str = Query(..., description="Continent",
+                           regex="^(Eropa|Asia|Australia|Amerika Selatan|Amerika Utara)$"),
+):
     try:
-        education = request.args.get('jenjang_pendidikan', '')
-        funding_type = request.args.get('pendanaan', '')
-        continent = request.args.get('benua', '')
-
         query = {
-            'jenjang pendidikan': education,
-            'pendanaan': funding_type,
-            'benua': continent
+            'jenjang pendidikan': jenjang_pendidikan,
+            'pendanaan': pendanaan,
+            'benua': benua
         }
 
         recommendations = recommend_by_content_based_filtering(query, DATA_CONTENT_BASED_FILTERING)
 
         result = {"recommendations": recommendations}
-        return jsonify(result)
+        return result
 
+    except HTTPException as he:
+        raise he
     except Exception as e:
-        print("Error:", str(e))
-        return jsonify({"error": str(e), "api_info": api_info()}), 400
+        raise HTTPException(status_code=500, detail=str(e))
 
-@app.route('/scholarship_details', methods=['GET'])
-def get_details():
-    try:
-        scholarship_name = request.args.get('scholarship_name', '')
-        details = get_scholarship_details(scholarship_name, DATA_CONTENT_BASED_FILTERING)
-        return jsonify(details)
 
-    except Exception as e:
-        return jsonify({"error": str(e), "api_info": api_info()}), 400
+@app.get("/scholarship_details/{scholarship_name}")
+def get_details(scholarship_name: str = Path(..., description="Scholarship name")):
+    details = get_scholarship_details(scholarship_name, DATA_CONTENT_BASED_FILTERING)
 
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    if not details:
+        return JSONResponse(content={"detail": "Beasiswa tidak tersedia"}, status_code=404)
+
+    return {"details": details or None}
+
+
+# Uncomment if you want run locally
+# if __name__ == '__main__':
+#     import uvicorn
+#
+#     uvicorn.run(app, host="127.0.0.1", port=5000)
