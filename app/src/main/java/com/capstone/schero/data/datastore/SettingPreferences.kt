@@ -1,4 +1,4 @@
-package com.capstone.schero.datastore
+package com.capstone.schero.data.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

@@ -4,31 +4,117 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.capstone.schero.adapter.RecommendationAdapter
+import com.capstone.schero.data.model.ListInputData
 import com.capstone.schero.databinding.FragmentHomeBinding
+import com.capstone.schero.ui.MainViewModel
+import com.capstone.schero.ui.ViewModelFactory
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
+    private lateinit var viewModel: MainViewModel
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var benua : String
+    private lateinit var jenjang : String
+    private lateinit var biaya : String
+    private val uniqueRecommendation = HashSet<String>()
+    private var adapter = RecommendationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val factory = ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
+        binding.apply {
+            spinnerBenua.onItemSelectedListener = this@HomeFragment
+            spinnerJenjang.onItemSelectedListener = this@HomeFragment
+            spinnerBiaya.onItemSelectedListener = this@HomeFragment
+
+            val benuaAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                ListInputData.listBenua
+            )
+
+            val jenjangAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                ListInputData.listJenjang
+            )
+
+            val biayaAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                ListInputData.listBiaya
+            )
+
+            spinnerBenua.adapter = benuaAdapter
+            spinnerJenjang.adapter = jenjangAdapter
+            spinnerBiaya.adapter = biayaAdapter
+
         }
+
         return root
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        binding.apply {
+            benua = spinnerBenua.getItemAtPosition(spinnerBenua.selectedItemPosition) as String
+            jenjang = spinnerJenjang.getItemAtPosition(spinnerJenjang.selectedItemPosition) as String
+            biaya = spinnerBiaya.getItemAtPosition(spinnerBiaya.selectedItemPosition) as String
+
+            recommenderButton.setOnClickListener {
+                viewModel.getRecomendation(benua, jenjang, biaya)
+            }
+
+            viewModel.setRecomendation.observe(viewLifecycleOwner) { listBeasiswa ->
+
+                uniqueRecommendation.clear()
+
+                for (beasiswa in listBeasiswa) {
+                    uniqueRecommendation.add(beasiswa)
+                }
+
+                val rekomendasiAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item,
+                    uniqueRecommendation.toList()
+                )
+
+                spinnerRekomendasi.adapter = rekomendasiAdapter
+            }
+
+            getInfoButton.setOnClickListener {
+                val selectedItem = spinnerRekomendasi.getItemAtPosition(spinnerRekomendasi.selectedItemPosition) as? String
+                if (selectedItem != null) {
+                    viewModel.searchScholarship(selectedItem)
+
+                    viewModel.search.observe(viewLifecycleOwner) {
+                        rvBeasiswa.layoutManager = LinearLayoutManager(requireContext())
+                        rvBeasiswa.setHasFixedSize(true)
+                        rvBeasiswa.adapter = adapter
+                        adapter.submitData(it)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
     }
 
     override fun onDestroyView() {

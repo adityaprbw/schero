@@ -1,10 +1,10 @@
-package com.capstone.schero.viewmodel
+package com.capstone.schero.ui.theme
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.capstone.schero.datastore.SettingPreferences
+import com.capstone.schero.data.datastore.SettingPreferences
 import kotlinx.coroutines.launch
 
 class ThemeViewModel (private val pref: SettingPreferences): ViewModel() {

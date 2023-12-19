@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_recommender"
-        android:name="com.capstone.schero.ui.recommender.RecommenderFragment"
+        android:name="com.capstone.schero.ui.search.SearchFragment"
         android:label="@string/recommender"
-        tools:layout="@layout/fragment_recommender" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_bookmarks"

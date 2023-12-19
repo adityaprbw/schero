@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.schero.databinding.FragmentBookmarksBinding
+import com.capstone.schero.ui.MainViewModel
+import com.capstone.schero.ui.ViewModelFactory
 
 class BookmarksFragment : Fragment() {
+    private lateinit var viewModel: MainViewModel
 
     private var _binding: FragmentBookmarksBinding? = null
 
@@ -20,16 +22,13 @@ class BookmarksFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val bookmarksViewModel =
-            ViewModelProvider(this).get(BookmarksViewModel::class.java)
 
         _binding = FragmentBookmarksBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        bookmarksViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val factory = ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
         return root
     }
 

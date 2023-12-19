@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.capstone.schero.ui.detail.DetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bg_detail"/>
+
+                <TextView
+                    android:id="@+id/namaTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:textColor="@color/dark_blue"
+                    android:text="@string/inpex"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:scaleType="centerCrop" />
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:text="@string/tentang_program"
+            style="@style/TitleStyle"/>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewDetail"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            android:paddingBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:text="@string/negara"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_loc" />
+                    <TextView
+                        android:id="@+id/negaraTextView"
+                        android:text="@string/jepang"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/jenjang"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_recommender"/>
+                    <TextView
+                        android:id="@+id/jenjangTextView"
+                        android:text="@string/s1"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/tipe_pendanaan"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_pendanaan"/>
+                    <TextView
+                        android:id="@+id/pendanaanTextView"
+                        android:text="@string/fully_funded"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/biaya_hidup"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_biaya"/>
+                    <TextView
+                        android:id="@+id/biayaTextView"
+                        android:text="@string/biaya"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:text="@string/persyaratan"
+            style="@style/TitleStyle"/>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewDetail"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            android:paddingBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:text="@string/minimal_ipk"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_ipk"/>
+                    <TextView
+                        android:id="@+id/ipkTextView"
+                        android:text="@string/ipk"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/jenis_tes_bahasa"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_toefl"/>
+                    <TextView
+                        android:id="@+id/jenisTesTextView"
+                        android:text="@string/no_test"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/min_skor"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_skor"/>
+                    <TextView
+                        android:id="@+id/skorTextView"
+                        android:text="@string/no_min_skor"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:text="@string/fakultas_dan_program_studi"
+            style="@style/TitleStyle"/>
+
+        <androidx.cardview.widget.CardView
+            style="@style/CardViewDetail"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="5dp"
+            android:paddingBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:text="@string/fakultas"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_fakultas"/>
+                    <TextView
+                        android:id="@+id/fakultasTextView"
+                        android:text="@string/nama_fakultas"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/program_studi"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_prodi"/>
+                    <TextView
+                        android:id="@+id/prodiTextView"
+                        android:text="@string/teknik_informatika"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/linkCardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="70dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            android:backgroundTint="@color/light_green"
+            android:autoLink="web">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_link"
+                    app:tint="@color/dark_green"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/linkTextView"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/linkTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textColor="@color/dark_green"
+                    android:text="@string/link_pendaftaran"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:paddingStart="20dp"
+                    android:autoLink="web"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

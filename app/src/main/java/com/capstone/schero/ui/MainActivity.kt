@@ -14,10 +14,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.capstone.schero.R
 import com.capstone.schero.databinding.ActivityMainBinding
-import com.capstone.schero.datastore.SettingPreferences
-import com.capstone.schero.datastore.dataStore
+import com.capstone.schero.data.datastore.SettingPreferences
+import com.capstone.schero.data.datastore.dataStore
 import com.capstone.schero.ui.login.LoginActivity
-import com.capstone.schero.viewmodel.ThemeViewModel
+import com.capstone.schero.ui.theme.ThemeActivity
+import com.capstone.schero.ui.theme.ThemeViewModel
+import com.capstone.schero.ui.theme.ThemeViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -39,9 +41,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            ThemeViewModel::class.java
-        )
+        val mainViewModel = ViewModelProvider(this, ThemeViewModelFactory(pref))[ThemeViewModel::class.java]
 
         mainViewModel.getThemeSettings().observe(this) { isDarkMode ->
             if (isDarkMode) {

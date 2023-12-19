@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
                 .into(binding.profileImage)
             binding.apply {
                 fullName.text = userName
-                email.setText(userEmail)
+                email.text = userEmail
                 signOutButton.setOnClickListener {
                     auth.signOut()
                     startActivity(Intent(requireActivity(), LoginActivity::class.java))

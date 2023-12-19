@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginBottom="15dp"
+    android:id="@+id/itemCardView"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/scholarshipImageView"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_detail"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    style="@style/TextItem"
+                    android:id="@+id/prodiTextView"
+                    android:text="@string/teknik_informatika"/>
+
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="15dp">
+
+            <TextView
+                android:id="@+id/scholarshipNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/inpex"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        style="@style/ItemLinearLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <ImageView
+                            style="@style/IconItem"
+                            android:src="@drawable/ic_loc"/>
+                        <TextView
+                            style="@style/TextItem"
+                            android:id="@+id/locationTextView"
+                            android:text="@string/jepang"/>
+                    </LinearLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/jenjangCardView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="8dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="50dp"
+                        android:backgroundTint="@color/light_green"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent">
+                        <TextView
+                            style="@style/TextItem"
+                            android:id="@+id/jenjangTextView"
+                            android:text="@string/s1"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp" />
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ItemLinearLayout">
+                <ImageView
+                    style="@style/IconItem"
+                    android:src="@drawable/ic_ipk"/>
+                <TextView
+                    style="@style/TextItem"
+                    android:id="@+id/ipkTextView"
+                    android:text="@string/min_ipk"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

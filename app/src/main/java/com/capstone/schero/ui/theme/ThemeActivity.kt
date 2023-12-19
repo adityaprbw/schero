@@ -1,4 +1,4 @@
-package com.capstone.schero.ui
+package com.capstone.schero.ui.theme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.capstone.schero.R
 import com.capstone.schero.databinding.ActivityThemeBinding
-import com.capstone.schero.datastore.SettingPreferences
-import com.capstone.schero.datastore.dataStore
-import com.capstone.schero.viewmodel.ThemeViewModel
+import com.capstone.schero.data.datastore.SettingPreferences
+import com.capstone.schero.data.datastore.dataStore
 
 class ThemeActivity : AppCompatActivity() {
 
@@ -26,9 +25,7 @@ class ThemeActivity : AppCompatActivity() {
 
         val switchTheme = binding.switchTheme
         val pref = SettingPreferences.getInstance(application.dataStore)
-        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
-            ThemeViewModel::class.java
-        )
+        val mainViewModel = ViewModelProvider(this, ThemeViewModelFactory(pref))[ThemeViewModel::class.java]
         mainViewModel.getThemeSettings().observe(this) {isDarkModeActive ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
