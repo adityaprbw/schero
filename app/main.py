@@ -1,36 +1,33 @@
 import os
-import uvicorn
-from fastapi import FastAPI, Query, HTTPException, Path
-from fastapi.responses import JSONResponse
-from prediction.prediction import (
-    recommend_by_content_based_filtering,
-    get_scholarship_details,
-    load_model_and_data,
-)
+from flask import Flask, request, jsonify
+from prediction.prediction import recommend_by_content_based_filtering, get_scholarship_details, load_model_and_data
 
-app = FastAPI(title="Schero API")
+app = Flask(__name__)
 
-# Load model and data
-MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=os.environ.get('GCS_ENV') == 'local')
+try:
+    MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=os.environ.get('GCS_ENV') == 'local')
+except Exception as e:
+    print(f"Error loading model and data: {e}")
+    # Log the error or handle it appropriately
 
 
-def get_port():
-    return int(os.environ.get("PORT", 8080 if 'K_SERVICE' in os.environ else 5000))
+def create_success_response(data):
+    return jsonify({"data": data, "status_code": 200}), 200
 
 
-@app.get("/")
+def create_error_response(error_message, status_code):
+    return jsonify({"error": error_message, "status_code": status_code}), status_code
+
+
+@app.route("/")
 def api_info():
-    return {
+    return create_success_response({
         "api_name": "Schero API",
         "owner": "Aditya Prabowo",
         "description": "Scholarship recommendation API based on education level, funding type, and continent.",
         "contact": {
             "email": "adityaprabowo2001@gmail.com",
             "github": "https://github.com/zshditya/schero"
-        },
-        "documentation": {
-            "openapi": "/docs",
-            "redoc": "/redoc"
         },
         "endpoints": {
             "/predict": {
@@ -50,16 +47,22 @@ def api_info():
                 }
             }
         }
-    }
+    })
 
 
-@app.get("/predict")
-def predict_scholarships(
-        jenjang_pendidikan: str = Query(..., description="Education level", regex="^(S1|S2|S3)$"),
-        pendanaan: str = Query(..., description="Funding type", regex="^(Fully Funded|Partial Funded)$"),
-        benua: str = Query(..., description="Continent",
-                           pattern="^(Eropa|Asia|Australia|Amerika Selatan|Amerika Utara)$"),
-):
+@app.route("/predict")
+def predict_scholarships():
+    jenjang_pendidikan = request.args.get('jenjang_pendidikan')
+    pendanaan = request.args.get('pendanaan')
+    benua = request.args.get('benua')
+
+    valid_education_levels = ["S1", "S2", "S3"]
+    valid_funding_types = ["Fully Funded", "Partial Funded"]
+    valid_continents = ["Eropa", "Asia", "Australia", "Amerika Selatan", "Amerika Utara"]
+
+    if jenjang_pendidikan not in valid_education_levels or pendanaan not in valid_funding_types or benua not in valid_continents:
+        return create_error_response("Invalid input", 400)
+
     query = {
         'jenjang pendidikan': jenjang_pendidikan,
         'pendanaan': pendanaan,
@@ -68,23 +71,32 @@ def predict_scholarships(
 
     try:
         recommendations = recommend_by_content_based_filtering(query, DATA_CONTENT_BASED_FILTERING)
-        return {"recommendations": recommendations}
-    except HTTPException as he:
-        raise he
-    except Exception:
-        raise
+        return create_success_response({"recommendations": recommendations})
+    except Exception as prediction_error:
+        print(f"Error predicting scholarships: {prediction_error}")
+        return create_error_response(str(prediction_error), 500)
 
 
-@app.get("/scholarship_details/{scholarship_name}")
-def get_details(scholarship_name: str = Path(..., description="Scholarship name")):
-    details = get_scholarship_details(scholarship_name, DATA_CONTENT_BASED_FILTERING)
+@app.route("/scholarship_details")
+def get_details():
+    scholarship_name = request.args.get('scholarship_name')
 
-    if not details:
-        return JSONResponse(content={"detail": "Beasiswa tidak tersedia"}, status_code=404)
+    if not scholarship_name:
+        return create_error_response("Parameter scholarship_name tidak ditemukan", 400)
 
-    return {"details": details or None}
+    try:
+        details = get_scholarship_details(scholarship_name, DATA_CONTENT_BASED_FILTERING)
+
+        if not details:
+            # Data tidak ditemukan, kirim respons khusus
+            return create_error_response("Beasiswa tidak ditemukan", 404)
+
+        return create_success_response({"details": details})
+    except Exception as prediction_error:
+        print(f"Error getting scholarship details: {prediction_error}")
+        return create_error_response("Terjadi kesalahan saat mengambil detail beasiswa", 500)
 
 
+# to run project on local
 if __name__ == '__main__':
-    # Use import string for uvicorn.run to avoid the warning
-    uvicorn.run("main:app", host="0.0.0.0", port=get_port(), reload=not ('K_SERVICE' in os.environ))
+    app.run(debug=True)

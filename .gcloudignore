@@ -6,3 +6,6 @@ __pycache__/
 *.env
 *.env.template
 ^credential/
+venv
+.venv
+env
