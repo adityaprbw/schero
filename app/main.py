@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, jsonify
-from prediction.prediction import recommend_by_content_based_filtering, get_scholarship_details, load_model_and_data
+from app.prediction.prediction import recommend_by_content_based_filtering, get_scholarship_details, load_model_and_data
 
 app = Flask(__name__)
 
@@ -8,7 +8,6 @@ try:
     MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=os.environ.get('GCS_ENV') == 'local')
 except Exception as e:
     print(f"Error loading model and data: {e}")
-    # Log the error or handle it appropriately
 
 
 def create_success_response(data):
@@ -71,10 +70,14 @@ def predict_scholarships():
 
     try:
         recommendations = recommend_by_content_based_filtering(query, DATA_CONTENT_BASED_FILTERING)
-        return create_success_response({"recommendations": recommendations})
+
+        if not recommendations:
+            return create_error_response("Tidak ada rekomendasi beasiswa yang sesuai", 404)
+
+        return create_success_response(recommendations)
     except Exception as prediction_error:
         print(f"Error predicting scholarships: {prediction_error}")
-        return create_error_response(str(prediction_error), 500)
+        return create_error_response("Terjadi kesalahan saat memprediksi beasiswa", 500)
 
 
 @app.route("/scholarship_details")
@@ -88,15 +91,14 @@ def get_details():
         details = get_scholarship_details(scholarship_name, DATA_CONTENT_BASED_FILTERING)
 
         if not details:
-            # Data tidak ditemukan, kirim respons khusus
             return create_error_response("Beasiswa tidak ditemukan", 404)
 
-        return create_success_response({"details": details})
+        return jsonify(details)
     except Exception as prediction_error:
         print(f"Error getting scholarship details: {prediction_error}")
         return create_error_response("Terjadi kesalahan saat mengambil detail beasiswa", 500)
 
 
-# to run project on local
-if __name__ == '__main__':
-    app.run(debug=True)
+# uncomment if you want to run project on local
+# if __name__ == '__main__':
+#     app.run(debug=True)
