@@ -4,10 +4,14 @@ from app.prediction.prediction import recommend_by_content_based_filtering, get_
 
 app = Flask(__name__)
 
+IS_LOCAL = 'GAE_INSTANCE' not in os.environ
+
 try:
-    MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=os.environ.get('GCS_ENV') == 'local')
+    MODEL, DATA_CONTENT_BASED_FILTERING = load_model_and_data(local=IS_LOCAL)
+    print("Data loaded successfully!")
 except Exception as e:
     print(f"Error loading model and data: {e}")
+    DATA_CONTENT_BASED_FILTERING = []
 
 
 def create_success_response(data):
@@ -51,6 +55,9 @@ def api_info():
 
 @app.route("/predict")
 def predict_scholarships():
+    if DATA_CONTENT_BASED_FILTERING is None:
+        return create_error_response("Data not available", 500)
+
     jenjang_pendidikan = request.args.get('jenjang_pendidikan')
     pendanaan = request.args.get('pendanaan')
     benua = request.args.get('benua')
@@ -59,7 +66,9 @@ def predict_scholarships():
     valid_funding_types = ["Fully Funded", "Partial Funded"]
     valid_continents = ["Eropa", "Asia", "Australia", "Amerika Selatan", "Amerika Utara"]
 
-    if jenjang_pendidikan not in valid_education_levels or pendanaan not in valid_funding_types or benua not in valid_continents:
+    if (jenjang_pendidikan not in valid_education_levels or
+            pendanaan not in valid_funding_types or
+            benua not in valid_continents):
         return create_error_response("Invalid input", 400)
 
     query = {
@@ -77,12 +86,15 @@ def predict_scholarships():
         return create_success_response(recommendations)
     except Exception as prediction_error:
         print(f"Error predicting scholarships: {prediction_error}")
-        return create_error_response("Terjadi kesalahan saat memprediksi beasiswa", 500)
+        return create_error_response("Terjadi kesalahan saat mengambil detail beasiswa", 500)
 
 
 @app.route("/scholarship_details")
 def get_details():
     scholarship_name = request.args.get('scholarship_name')
+
+    if DATA_CONTENT_BASED_FILTERING is None:
+        return create_error_response("Data not available", 500)
 
     if not scholarship_name:
         return create_error_response("Parameter scholarship_name tidak ditemukan", 400)
@@ -99,6 +111,6 @@ def get_details():
         return create_error_response("Terjadi kesalahan saat mengambil detail beasiswa", 500)
 
 
-# uncomment if you want to run project on local
+# uncomment if you want to run the project on local
 # if __name__ == '__main__':
 #     app.run(debug=True)

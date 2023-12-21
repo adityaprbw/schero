@@ -20,7 +20,7 @@ def download_file_from_gcs(bucket_name, source_blob_name, destination_file_name)
 def load_model_and_data(local=False):
     bucket_name = 'zshdityaschero'
     model_file_name = 'tfidf_matrix.pkl'
-    dataset_file_name = 'beasiswa.csv'
+    dataset_file_name = 'beasiswa-dataset.csv'
 
     if local:
         model_path = f'app/model/{model_file_name}'
@@ -30,14 +30,18 @@ def load_model_and_data(local=False):
             download_file_from_gcs(bucket_name, model_file_name, f'app/model/{model_file_name}')
             download_file_from_gcs(bucket_name, dataset_file_name, f'app/data/{dataset_file_name}')
         except Exception as e:
-            print(f"Error loading model and data: {e}")
+            print(f"Error downloading files: {e}")
             raise
 
         model_path = f'app/model/{model_file_name}'
         dataset_path = f'app/data/{dataset_file_name}'
 
-    data_content_based_filtering = pd.read_csv(dataset_path)
-    model = joblib.load(model_path)
+    try:
+        data_content_based_filtering = pd.read_csv(dataset_path)
+        model = joblib.load(model_path)
+    except Exception as e:
+        print(f"Error loading model or data: {e}")
+        raise
 
     return model, data_content_based_filtering
 
@@ -57,8 +61,8 @@ def recommend_by_content_based_filtering(query, data_content_based_filtering):
         benua_similarity = fuzz.token_set_ratio(query['benua'], str(beasiswa['Benua']).lower())
         funding_similarity = fuzz.token_set_ratio(query['pendanaan'], str(beasiswa['Jenis Pendanaan']).lower())
 
-        FEATURE_SIMILARITY_WEIGHT = 3
-        combined_similarity = (jenjang_similarity + benua_similarity + funding_similarity) / FEATURE_SIMILARITY_WEIGHT
+        feature_similarity_weight = 3
+        combined_similarity = (jenjang_similarity + benua_similarity + funding_similarity) / feature_similarity_weight
         matched_beasiswas.append((index, combined_similarity))
 
     matched_beasiswas = sorted(matched_beasiswas, key=lambda x: x[1], reverse=True)
@@ -73,7 +77,9 @@ def recommend_by_content_based_filtering(query, data_content_based_filtering):
 
 
 def get_scholarship_details(scholarship_name, data_content_based_filtering):
-    scholarship_details = data_content_based_filtering[data_content_based_filtering['Nama Beasiswa'] == scholarship_name]
+    scholarship_details = data_content_based_filtering[
+        data_content_based_filtering['Nama Beasiswa'] == scholarship_name
+    ]
     return scholarship_details.to_dict(orient='records')
 
 
