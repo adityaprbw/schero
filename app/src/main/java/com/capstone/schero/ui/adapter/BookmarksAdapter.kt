@@ -72,7 +72,10 @@ class BookmarksAdapter : RecyclerView.Adapter<BookmarksAdapter.BookmarkViewHolde
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val oldList = oldList[oldItemPosition]
             val newList = newList[newItemPosition]
-            return oldList.namaBeasiswa == newList.namaBeasiswa && oldList.linkGambar == newList.linkGambar
+            return oldList.namaBeasiswa == newList.namaBeasiswa
+                    && oldList.linkGambar == newList.linkGambar
+                    && oldList.negara == newList.negara
+                    && oldList.iPK == newList.iPK
         }
     }
 }
