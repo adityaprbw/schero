@@ -36,9 +36,12 @@ class BookmarksFragment : Fragment() {
         val root: View = binding.root
 
         adapter = BookmarksAdapter()
-        binding.rvScholarship.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvScholarship.setHasFixedSize(true)
-        binding.rvScholarship.adapter = adapter
+
+        binding.apply {
+            rvScholarship.layoutManager = LinearLayoutManager(requireContext())
+            rvScholarship.setHasFixedSize(true)
+            rvScholarship.adapter = adapter
+        }
 
         loadUserAsync()
 

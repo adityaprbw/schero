@@ -43,7 +43,7 @@
     <string name="teknik_informatika">Teknik Informatika</string>
     <string name="min_ipk">Tidak ada minimum IPK</string>
     <string name="biaya_hidup">Biaya Hidup</string>
-    <string name="biaya">$1.103,84</string>
+    <string name="biaya">-</string>
     <string name="jenis_tes_bahasa">Jenis Tes Bahasa</string>
     <string name="no_test">Tidak ada tes bahasa</string>
     <string name="min_skor">Minimum Skor Tes Bahasa</string>

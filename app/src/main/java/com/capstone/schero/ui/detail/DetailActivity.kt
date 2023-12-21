@@ -56,9 +56,10 @@ class DetailActivity : AppCompatActivity() {
 
                 pendanaanTextView.text = list[0].jenisPendanaan
 
-                biayaTextView.text = list[0].biayaHidup
+                if (list[0].biayaHidup == "0") ipkTextView.visibility = View.VISIBLE
+                else biayaTextView.text = list[0].biayaHidup
 
-                if (list[0].iPK == "0") ipkTextView.visibility = View.VISIBLE
+                if (list[0].iPK == "0.0") ipkTextView.visibility = View.VISIBLE
                 else ipkTextView.text = list[0].iPK
 
                 if (list[0].jenisTesBahasa == "0") jenisTesTextView.visibility = View.VISIBLE

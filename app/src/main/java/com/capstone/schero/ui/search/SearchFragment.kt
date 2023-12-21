@@ -65,7 +65,7 @@ class SearchFragment : Fragment() {
 
                 locationTextView.text = list[0].negara
 
-                if (list[0].iPK == "0") ipkTextView.visibility = View.VISIBLE
+                if (list[0].iPK == "0.0") ipkTextView.visibility = View.VISIBLE
                 else ipkTextView.text = list[0].iPK
 
                 itemCardView.setOnClickListener {
