@@ -54,6 +54,9 @@ class SearchFragment : Fragment() {
 
         viewModel.search.observe(viewLifecycleOwner) { list ->
             binding.apply {
+
+                itemCardView.visibility = View.VISIBLE
+
                 Glide.with(requireContext())
                     .load(list[0].linkGambar)
                     .into(binding.scholarshipImageView)
@@ -62,11 +65,8 @@ class SearchFragment : Fragment() {
 
                 locationTextView.text = list[0].negara
 
-                if (list[0].iPK == "0") {
-                    ipkTextView.visibility = View.VISIBLE
-                } else {
-                    ipkTextView.text = list[0].iPK
-                }
+                if (list[0].iPK == "0") ipkTextView.visibility = View.VISIBLE
+                else ipkTextView.text = list[0].iPK
 
                 itemCardView.setOnClickListener {
                     val intent = Intent(it.context, DetailActivity::class.java)
