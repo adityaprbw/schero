@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/red"
+        android:drawable="@drawable/ic_saved"
+        android:state_checked="true" />
+    <item
+        android:id="@+id/grey"
+        android:drawable="@drawable/ic_unsave"
+        android:state_checked="false" />
+</selector>

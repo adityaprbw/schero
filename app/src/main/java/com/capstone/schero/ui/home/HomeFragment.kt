@@ -1,5 +1,6 @@
 package com.capstone.schero.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,11 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.schero.adapter.RecommendationAdapter
 import com.capstone.schero.data.model.ListInputData
 import com.capstone.schero.databinding.FragmentHomeBinding
 import com.capstone.schero.ui.MainViewModel
 import com.capstone.schero.ui.ViewModelFactory
+import com.capstone.schero.ui.detail.DetailActivity
 
 class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -24,7 +24,6 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var jenjang : String
     private lateinit var biaya : String
     private val uniqueRecommendation = HashSet<String>()
-    private var adapter = RecommendationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,16 +97,12 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
 
             getInfoButton.setOnClickListener {
+
                 val selectedItem = spinnerRekomendasi.getItemAtPosition(spinnerRekomendasi.selectedItemPosition) as? String
                 if (selectedItem != null) {
-                    viewModel.searchScholarship(selectedItem)
-
-                    viewModel.search.observe(viewLifecycleOwner) {
-                        rvBeasiswa.layoutManager = LinearLayoutManager(requireContext())
-                        rvBeasiswa.setHasFixedSize(true)
-                        rvBeasiswa.adapter = adapter
-                        adapter.submitData(it)
-                    }
+                    val intent = Intent(it.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_NAME, selectedItem)
+                    it.context.startActivity(intent)
                 }
             }
         }

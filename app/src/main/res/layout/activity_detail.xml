@@ -9,40 +9,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            style="@style/CardViewPhoto"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg_detail"/>
-
-                <TextView
-                    android:id="@+id/namaTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:textColor="@color/dark_blue"
-                    android:text="@string/inpex"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:scaleType="centerCrop" />
-            </FrameLayout>
+            <ImageView
+                android:id="@+id/scholarshipPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bg_detail"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -53,14 +34,25 @@
         <androidx.cardview.widget.CardView
             style="@style/CardViewDetail"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            android:paddingBottom="15dp">
+            app:cardElevation="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="20dp">
+                style="@style/LinearLayoutDescription">
+
+                <TextView
+                    android:text="@string/nama_program"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_nama" />
+                    <TextView
+                        android:id="@+id/namaScholarship"
+                        android:text="@string/inpex"
+                        android:layout_marginEnd="10dp"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
 
                 <TextView
                     android:text="@string/negara"
@@ -73,6 +65,20 @@
                     <TextView
                         android:id="@+id/negaraTextView"
                         android:text="@string/jepang"
+                        style="@style/DetailDescriptionStyle"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/benua"
+                    style="@style/DetailTitleStyle"/>
+                <LinearLayout
+                    style="@style/HorizontalLinearLayout">
+                    <ImageView
+                        style="@style/IconStyle"
+                        android:src="@drawable/ic_benua" />
+                    <TextView
+                        android:id="@+id/benuaTextView"
+                        android:text="@string/asia"
                         style="@style/DetailDescriptionStyle"/>
                 </LinearLayout>
 
@@ -129,14 +135,10 @@
         <androidx.cardview.widget.CardView
             style="@style/CardViewDetail"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            android:paddingBottom="15dp">
+            app:cardElevation="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="20dp">
+                style="@style/LinearLayoutDescription">
 
                 <TextView
                     android:text="@string/minimal_ipk"
@@ -148,7 +150,7 @@
                         android:src="@drawable/ic_ipk"/>
                     <TextView
                         android:id="@+id/ipkTextView"
-                        android:text="@string/ipk"
+                        android:text="@string/min_ipk"
                         style="@style/DetailDescriptionStyle"/>
                 </LinearLayout>
 
@@ -191,15 +193,10 @@
         <androidx.cardview.widget.CardView
             style="@style/CardViewDetail"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            android:paddingBottom="15dp">
+            app:cardElevation="5dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingBottom="20dp">
-
+                style="@style/LinearLayoutDescription">
                 <TextView
                     android:text="@string/fakultas"
                     style="@style/DetailTitleStyle"/>
@@ -232,52 +229,65 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/linkCardView"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="70dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="10dp"
-            android:backgroundTint="@color/light_green"
-            android:autoLink="web">
+            android:orientation="horizontal">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/linkCardView"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="5"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="@color/light_green"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_link"
-                    app:tint="@color/dark_green"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/linkTextView"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/linkTextView"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        style="@style/ImageViewLink"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/linkTextView"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        style="@style/TextLink"
+                        android:id="@+id/linkTextView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/light_blue"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="5dp">
+
+                <ToggleButton
+                    android:id="@+id/toggle_bookmark"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:textColor="@color/dark_green"
-                    android:text="@string/link_pendaftaran"
-                    android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:paddingStart="20dp"
-                    android:autoLink="web"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="center"
+                    android:textOff=""
+                    android:textOn=""
+                    android:background="@drawable/bookmarks_toggle"
+                    app:tint="@color/white" />
 
-        </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

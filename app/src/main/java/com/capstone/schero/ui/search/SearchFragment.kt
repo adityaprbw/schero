@@ -3,21 +3,20 @@ package com.capstone.schero.ui.search
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.capstone.schero.R
-import com.capstone.schero.adapter.RecommendationAdapter
+import com.bumptech.glide.Glide
 import com.capstone.schero.databinding.FragmentSearchBinding
 import com.capstone.schero.ui.MainActivity
 import com.capstone.schero.ui.MainViewModel
 import com.capstone.schero.ui.ViewModelFactory
+import com.capstone.schero.ui.detail.DetailActivity
 
 class SearchFragment : Fragment() {
 
@@ -25,7 +24,6 @@ class SearchFragment : Fragment() {
 
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
-    private var adapter = RecommendationAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,15 +53,26 @@ class SearchFragment : Fragment() {
         })
 
         viewModel.search.observe(viewLifecycleOwner) { list ->
-            binding.rvScholarship.layoutManager = LinearLayoutManager(requireContext())
-            binding.rvScholarship.setHasFixedSize(true)
-            binding.rvScholarship.adapter = adapter
-            if (list != null) {
-                adapter.submitData(list)
-                binding.noData.visibility = View.GONE
-            } else {
-                binding.noData.visibility = View.VISIBLE
-                Toast.makeText(requireContext(), getString(R.string.no_data), Toast.LENGTH_SHORT).show()
+            binding.apply {
+                Glide.with(requireContext())
+                    .load(list[0].linkGambar)
+                    .into(binding.scholarshipImageView)
+
+                scholarshipNameTextView.text = list[0].namaBeasiswa
+
+                locationTextView.text = list[0].negara
+
+                if (list[0].iPK == "0") {
+                    ipkTextView.visibility = View.VISIBLE
+                } else {
+                    ipkTextView.text = list[0].iPK
+                }
+
+                itemCardView.setOnClickListener {
+                    val intent = Intent(it.context, DetailActivity::class.java)
+                    intent.putExtra(DetailActivity.EXTRA_NAME, list[0].namaBeasiswa)
+                    it.context.startActivity(intent)
+                }
             }
         }
 

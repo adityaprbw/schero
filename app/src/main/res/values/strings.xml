@@ -6,7 +6,7 @@
     <string name="profile">Profile</string>
     <string name="logout">Log out</string>
     <string name="theme">Change Theme</string>
-    <string name="search">Search Scholarship</string>
+    <string name="search">Search</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="setting">Setting</string>
     <string name="recommendation">Recommendasi</string>
@@ -55,4 +55,11 @@
     <string name="fakultas_dan_program_studi">Fakultas dan Program Studi</string>
     <string name="input_nama">Masukkan nama beasiswa</string>
     <string name="no_data">Tidak ada data beasiswa</string>
+    <string name="tv_hasil">Hasil Rekomendasi Beasiswa</string>
+    <string name="tv_get">Dapatkan Info Beasiswa</string>
+    <string name="benua">Benua</string>
+    <string name="asia">Asia</string>
+    <string name="nama_program">Nama Program Beasiswa</string>
+    <string name="add">Beasiswa berhasil disimpan</string>
+    <string name="delete">Beasiswa berhasil dihapus dari bookmark</string>
 </resources>

@@ -7,3 +7,4 @@ object Injection {
         return ScholarshipRepository.getInstance()
     }
 }
+

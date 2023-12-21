@@ -26,7 +26,7 @@ class ScholarshipRepository {
                 response: Response<ResponseScholarshipPredict>
             ) {
                 if (response.isSuccessful) {
-                    _getRecommendation.value = response.body()?.recommendations
+                    _getRecommendation.value = response.body()?.data
                 } else {
                     Log.e("Repository", "onFailure: ${response.message()}")
                 }

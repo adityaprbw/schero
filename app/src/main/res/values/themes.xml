@@ -33,13 +33,38 @@
         <item name="android:layout_marginStart">5dp</item>
     </style>
 
-    <style name="CardViewHome">
+    <style name="CardViewSpinner">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginStart">32dp</item>
         <item name="android:layout_marginEnd">32dp</item>
     </style>
+
+    <style name="SpinnerLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="CardViewPhoto">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">32dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+    </style>
+
+    <style name="ButtonHome">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_marginStart">32dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginEnd">32dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:backgroundTint">@color/light_blue</item>
+    </style>
+
 
     <!--    Detail-->
 
@@ -57,6 +82,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">15sp</item>
         <item name="android:layout_marginStart">15dp</item>
+    </style>
+
+    <style name="LinearLayoutDescription">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
 
     <style name="CardViewDetail">
@@ -79,6 +111,39 @@
     <style name="IconStyle">
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">25dp</item>
+    </style>
+
+    <style name="CardViewLink">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">70dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:backgroundTint">@color/light_green</item>
+        <item name="android:autoLink">web</item>
+    </style>
+
+    <style name="ImageViewLink">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:src">@drawable/ic_link</item>
+        <item name="android:tint">@color/dark_green</item>
+    </style>
+
+    <style name="TextLink">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:text">@string/link_pendaftaran</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:autoLink">web</item>
     </style>
 
     <!--    ITEM LIST-->
@@ -104,11 +169,10 @@
         <item name="android:paddingEnd">2dp</item>
     </style>
 
-
     <style name="IconItem">
+        <item name="android:backgroundTint">@color/black</item>
         <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">30dp</item>
     </style>
-
 
 </resources>

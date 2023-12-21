@@ -13,19 +13,17 @@
         tools:context=".ui.home.HomeFragment">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            style="@style/CardViewPhoto"
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp">
+
             <ImageView
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/banner" />
+                android:src="@drawable/banner"/>
+
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -33,14 +31,12 @@
             style="@style/TitleStyle"/>
 
         <androidx.cardview.widget.CardView
-            style="@style/CardViewHome"
+            style="@style/CardViewSpinner"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp">
             <Spinner
                 android:id="@+id/spinner_benua"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp" />
+                style="@style/SpinnerLayout" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -48,14 +44,12 @@
             style="@style/TitleStyle"/>
 
         <androidx.cardview.widget.CardView
-            style="@style/CardViewHome"
+            style="@style/CardViewSpinner"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp">
             <Spinner
-                android:id="@+id/spinner_jenjang"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp" />
+                style="@style/SpinnerLayout"
+                android:id="@+id/spinner_jenjang"/>
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -63,60 +57,37 @@
             style="@style/TitleStyle" />
 
         <androidx.cardview.widget.CardView
-            style="@style/CardViewHome"
+            style="@style/CardViewSpinner"
             app:cardCornerRadius="8dp"
             app:cardElevation="5dp">
             <Spinner
                 android:id="@+id/spinner_biaya"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp" />
+                style="@style/SpinnerLayout"/>
         </androidx.cardview.widget.CardView>
 
         <Button
+            style="@style/ButtonHome"
             android:id="@+id/recommenderButton"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/recommend_me"
-            android:backgroundTint="@color/light_blue" />
+            android:text="@string/recommend_me"/>
 
         <TextView
-            android:text="Hasil Rekomendasi Beasiswa"
+            android:text="@string/tv_hasil"
             style="@style/TitleStyle" />
 
         <androidx.cardview.widget.CardView
-            style="@style/CardViewHome"
+            style="@style/CardViewSpinner"
             app:cardCornerRadius="8dp"
-            app:cardElevation="5dp"
-            android:layout_marginBottom="20dp">
+            app:cardElevation="5dp">
             <Spinner
                 android:id="@+id/spinner_rekomendasi"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"/>
+                style="@style/SpinnerLayout"/>
         </androidx.cardview.widget.CardView>
 
         <Button
+            style="@style/ButtonHome"
             android:id="@+id/getInfoButton"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="10dp"
-            android:text="Dapatkan Info Beasiswa"
-            android:backgroundTint="@color/light_blue" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_beasiswa"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="100dp"
-            tools:listitem="@layout/item_scholarship" />
+            android:text="@string/tv_get"
+            android:layout_marginBottom="100dp"/>
 
     </LinearLayout>
 

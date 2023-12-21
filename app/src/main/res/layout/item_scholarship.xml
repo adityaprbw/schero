@@ -18,7 +18,7 @@
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp">
@@ -29,15 +29,10 @@
 
                 <ImageView
                     android:id="@+id/scholarshipImageView"
-                    android:layout_width="120dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/bg_detail"
                     android:scaleType="centerCrop"/>
-
-                <TextView
-                    style="@style/TextItem"
-                    android:id="@+id/prodiTextView"
-                    android:text="@string/teknik_informatika"/>
 
             </FrameLayout>
 
@@ -81,26 +76,6 @@
                             android:id="@+id/locationTextView"
                             android:text="@string/jepang"/>
                     </LinearLayout>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/jenjangCardView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="8dp"
-                        app:cardElevation="0dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginStart="50dp"
-                        android:backgroundTint="@color/light_green"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
-                        <TextView
-                            style="@style/TextItem"
-                            android:id="@+id/jenjangTextView"
-                            android:text="@string/s1"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp" />
-                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
