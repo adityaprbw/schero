@@ -45,7 +45,7 @@ class BookmarksAdapter : RecyclerView.Adapter<BookmarksAdapter.BookmarkViewHolde
 
                 locationTextView.text = scholarship.negara
 
-                if (scholarship.iPK == "0") ipkTextView.visibility = View.VISIBLE
+                if (scholarship.iPK == "0.0") ipkTextView.visibility = View.VISIBLE
                 else ipkTextView.text = scholarship.iPK
 
                 itemCardView.setOnClickListener {
@@ -73,9 +73,6 @@ class BookmarksAdapter : RecyclerView.Adapter<BookmarksAdapter.BookmarkViewHolde
             val oldList = oldList[oldItemPosition]
             val newList = newList[newItemPosition]
             return oldList.namaBeasiswa == newList.namaBeasiswa
-                    && oldList.linkGambar == newList.linkGambar
-                    && oldList.negara == newList.negara
-                    && oldList.iPK == newList.iPK
         }
     }
 }
