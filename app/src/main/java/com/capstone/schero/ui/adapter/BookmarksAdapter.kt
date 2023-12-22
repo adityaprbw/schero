@@ -73,9 +73,6 @@ class BookmarksAdapter : RecyclerView.Adapter<BookmarksAdapter.BookmarkViewHolde
             val oldList = oldList[oldItemPosition]
             val newList = newList[newItemPosition]
             return oldList.namaBeasiswa == newList.namaBeasiswa
-                    && oldList.linkGambar == newList.linkGambar
-                    && oldList.negara == newList.negara
-                    && oldList.iPK == newList.iPK
         }
     }
 }

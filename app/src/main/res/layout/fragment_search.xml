@@ -33,8 +33,7 @@
         android:layout_marginBottom="15dp"
         android:id="@+id/itemCardView"
         app:cardCornerRadius="20dp"
-        app:cardElevation="5dp"
-        android:visibility="gone">
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,18 +46,12 @@
                 app:cardCornerRadius="20dp"
                 app:cardElevation="5dp">
 
-                <FrameLayout
+                <ImageView
+                    android:id="@+id/scholarshipImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/scholarshipImageView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/bg_detail"
-                        android:scaleType="centerCrop"/>
-
-                </FrameLayout>
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_detail"
+                    android:scaleType="centerCrop"/>
 
             </androidx.cardview.widget.CardView>
 
@@ -79,30 +72,17 @@
                     android:layout_marginTop="10dp"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <LinearLayout
-                            style="@style/ItemLinearLayout"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
-                            <ImageView
-                                style="@style/IconItem"
-                                android:src="@drawable/ic_loc"/>
-                            <TextView
-                                style="@style/TextItem"
-                                android:id="@+id/locationTextView"
-                                android:text="@string/jepang"/>
-                        </LinearLayout>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
+                    style="@style/ItemLinearLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <ImageView
+                        style="@style/IconItem"
+                        android:src="@drawable/ic_loc"/>
+                    <TextView
+                        style="@style/TextItem"
+                        android:id="@+id/locationTextView"
+                        android:text="@string/jepang"/>
                 </LinearLayout>
 
                 <LinearLayout
