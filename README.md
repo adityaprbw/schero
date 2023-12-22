@@ -2,7 +2,7 @@
 
 Schero is an open-source Android app that leverages machine learning to offer personalized scholarship recommendations. It enables users to receive suggestions for domestic and international scholarship opportunities based on their input.
 
-## Aplication Setup
+## Application Setup
 
 - [Prerequisites](#prerequisites)
   - [JDK 17.0.7 or higher](#jdk-1707-or-higher)
