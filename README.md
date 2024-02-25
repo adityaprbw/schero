@@ -26,7 +26,7 @@ Schero is an open-source Android app that leverages machine learning to offer pe
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/zshditya/schero.git
+   git clone https://github.com/d4emonic/schero.git
    cd schero
    git checkout Cloud-Computing 
    
