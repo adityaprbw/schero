@@ -114,6 +114,6 @@ GET https://your-project-id.et.r.appspot.com/predict?jenjang_pendidikan=S2&penda
 
 For any inquiries or issues, please reach out to us through the following channels:
 
-- **Email:** [adityaprabowo2001@gmail.com](mailto:adityaprabowo2001@gmail.com)
-- **GitHub Repository:** [Schero GitHub Issues](https://github.com/zshditya/schero/issues)
+- **Email:** [adityaprabowo2001@gmail.com](mailto:adityaprabowo.dev@gmail.com)
+- **GitHub Repository:** [Schero GitHub Issues](https://github.com/pr-bw/schero/issues)
 
